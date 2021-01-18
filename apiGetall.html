@@ -1,0 +1,77 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    </head>
+    <body>
+        <d class="container">
+            <d class="row">
+                <d class="col-2"></d>
+                <d class="col-8">
+                    <!-- <input type="text" class="form-control form-control-sm" id="uid"><br> -->
+                    <!--   -->
+                    <button type="button" class="btn btn-primary btn-lg btn-block" style="background-color: forestgreen;" onclick="getApi()">Get All</button><br>
+                </d>
+                <d class="col-2"></d>
+            </d>
+
+            <d class="row">
+                <d class="col-2"></d>
+                <d class="col-8">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                              <th scope="col">Id</th>
+                              <th scope="col">Title</th>
+                              <th scope="col">Body</th>
+                            </tr>
+                          </thead>
+
+                          <tbody id="result">
+
+                          </tbody>
+                    </table>
+                </d>
+                <d class="col-2"></d>
+            </d>
+        </d>
+
+        <script>
+            var xhr=new XMLHttpRequest();
+
+            
+
+            function getApi(){
+                xhr.open("get","https://jsonplaceholder.typicode.com/posts");
+                 xhr.send();
+            }
+
+
+            
+            /* function fetchPos(url){
+                xhr.open("get",url);
+                xhr.send();
+            } */
+
+            xhr.onreadystatechange=()=>{
+                if(xhr.readyState==4){
+                    if((xhr.status>=200) & (xhr.status<300)){
+                        console.log("success");
+                        var post= JSON.parse(xhr.responseText);
+                        console.log(post);
+
+                        var html_data="";
+                        for(let i=0;i<post.length;i++){
+                            var rec=post[i];
+                            html_data=html_data+"<tr> <td>"+rec.id+"</td> <td>"+rec.title+"</td> <td>"+rec.body+"</td> </tr>";
+                            document.querySelector("#result").innerHTML=html_data;
+                        }
+                        
+                        
+                        
+                    }
+                    console.log("task complete");
+                }
+            }
+        </script>
+    </body>
+</html>
